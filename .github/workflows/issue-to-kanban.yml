@@ -12,4 +12,4 @@ jobs:
         with:
           project: juice-shop
           column: Backlog
-          # repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
