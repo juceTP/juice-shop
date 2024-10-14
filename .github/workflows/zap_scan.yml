@@ -20,13 +20,11 @@ jobs:
           target: 'https://preview.owasp-juice.shop'
           rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a'
-      
-      - name: Save ZAP results
-        run: |
-          mkdir -p zap-results
-          docker cp $(docker ps -q --filter ancestor=ghcr.io/zaproxy/zaproxy:stable):/zap/wrk/report.html ./zap-results/report.html
-        continue-on-error: true
-      
+          report: 'zap-results/report.html'  # Save the report directly in zap-results folder
+
+      - name: List files in zap-results
+        run: ls -la zap-results
+
       - name: Archive ZAP Results
         uses: actions/upload-artifact@v3
         with:
