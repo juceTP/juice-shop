@@ -20,13 +20,9 @@ jobs:
           target: 'https://preview.owasp-juice.shop'
           rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a'
-          report: 'zap-results/report.html'  # Save the report directly in zap-results folder
-
-      - name: List files in zap-results
-        run: ls -la zap-results
 
       - name: Archive ZAP Results
         uses: actions/upload-artifact@v3
         with:
-          name: ZAP-report
-          path: zap-results/report.html
+          name: zap.zip
+          path: zap_scan.zip
