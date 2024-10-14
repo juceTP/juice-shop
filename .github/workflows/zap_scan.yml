@@ -12,22 +12,13 @@ jobs:
         with:
           ref: master
 
-      - name: ZAP Scan
-        id: zap_scan
+      - name: Run ZAP Scan and Save HTML Report
         uses: zaproxy/action-baseline@v0.13.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           docker_name: 'ghcr.io/zaproxy/zaproxy:stable'
           target: 'https://preview.owasp-juice.shop'
-          cmd_options: '-a'
-
-      - name: Save ZAP HTML Report
-        run: |
-          mkdir -p zap-results
-          ZAP_CONTAINER_ID=$(docker ps -q --filter ancestor=ghcr.io/zaproxy/zaproxy:stable)
-          echo "Copying ZAP HTML report from container ID: $ZAP_CONTAINER_ID"
-          docker cp $ZAP_CONTAINER_ID:/zap/wrk/report.html ./zap-results/report.html
-        continue-on-error: true
+          cmd_options: '-r zap-results/report.html -a'
 
       - name: Archive ZAP HTML Report
         uses: actions/upload-artifact@v3
